@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/router";
 import { useState } from "react";
+import styles from "../../styles/Recipes.module.scss";
 
 type Recipe = {
   id: number;
@@ -33,10 +34,13 @@ export default function Recipe() {
 
   return (
     <>
-      <h1>{recipe.name}</h1>
-      <h3>Description: {recipe.description}</h3>
-      <img src={recipe.image} alt={recipe.name} />
-      <h4>Instructions: {recipe.instructions}</h4>
+      <h1 className={styles.recipeName}>{recipe.name.toUpperCase()}</h1>
+      <h3 className={styles.recipeDescription}>Description: {recipe.description}</h3>
+      <div className={styles.imageContainer}>
+        <img src={recipe.image} alt={recipe.name} />
+        <p>lorem ipsum</p>
+      </div>
+      <h4 className={styles.recipeInstructions}>Instructions: {recipe.instructions}</h4>
     </>
   )
 }

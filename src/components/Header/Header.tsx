@@ -1,17 +1,19 @@
 import Link from 'next/link';
-import './Header.css';
+import './Header.module.scss';
 
 export default function Header() {
   return (
     <>
       <header>
         <nav>
-          <li>
-            <Link href="/">Heim</Link>
-          </li>
-          <li>
-            <Link href="/recipes">Allar uppskriftir</Link>
-          </li>
+          <ul>
+            <li>
+              <Link href="/">Heim</Link>
+            </li>
+            <li>
+              <Link href="/recipes">Allar uppskriftir</Link>
+            </li>
+          </ul>
         </nav>
       </header>
     </>
