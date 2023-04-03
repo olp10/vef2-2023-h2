@@ -1,0 +1,33 @@
+.title {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.recipeContainer {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 80vw;
+}
+
+.recipe {
+  margin: 1rem auto;
+  text-align: center;
+  width: 50%;
+  background-color: rgb(228, 228, 228);
+
+  & p {
+    margin: auto;
+    margin-top: .8rem;
+    margin-bottom: 2rem;
+    max-width: 50%;
+  }
+
+  & img {
+    width: 30%;
+  }
+
+  & h2 {
+    margin: 1rem auto;
+  }
+}
