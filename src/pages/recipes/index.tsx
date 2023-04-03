@@ -90,7 +90,7 @@ export default function Recipes() {
                 query: { id: recipe.id },
               }}
             >
-              <h2>{recipe.name}</h2>
+              <h2>{recipe.name.toUpperCase()}</h2>
             </Link>
             <img src={recipe.image} alt={recipe.name} />
             <p>{recipe.description}</p>
