@@ -14,6 +14,7 @@ type Recipe = {
 
 // TODO: Index síða fyrir uppskriftir
 export default function Recipes() {
+  const [state, setState] = useState('');
   const [numOfRecipes, setNumOfRecipes] = useState(0);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [offset, setOffset] = useState(0);
@@ -24,15 +25,25 @@ export default function Recipes() {
     const offsetFromUrl = Number(router.query.offset);
     if (!isNaN(offsetFromUrl)) {
       setOffset(offsetFromUrl);
+    } else {
+      setOffset(0);
     }
   }, [router.query.offset]);
 
   async function getAllRecipes() {
+    setState('loading');
+    // pause for 3 sec
     const response = await fetch(
       `http://localhost:3001/recipes?limit=${limit}&offset=${offset}`
     );
     const data = await response.json();
     setRecipes(data);
+    // if there is data, set state to data. else set state to empty
+    if (data.length > 0) {
+      setState('data');
+    } else {
+      setState('empty');
+    }
 
     const recipeCount = await fetch(`http://localhost:3001/recipes`);
     const recipeCountData = await recipeCount.json();
@@ -61,8 +72,16 @@ export default function Recipes() {
     <>
       <h1 className={styles.title}>Uppskriftir</h1>
 
+
+      {state === 'loading' && (
+        <h1>Hleð...</h1>
+      )}
+      {state === 'empty' && (
+        <h1>Það er ekkert hér!</h1>
+      )}
+      {state === 'data' && (
       <section className={styles.recipeContainer}>
-        {// TODO: Útbúa paging?
+        {
         recipes.map((recipe) => (
           <div className={styles.recipe} key={recipe.id}>
             <Link
@@ -94,6 +113,7 @@ export default function Recipes() {
           </Link>
         )}
       </section>
+    )}
     </>
   );
 }
