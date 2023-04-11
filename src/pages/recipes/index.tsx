@@ -12,6 +12,8 @@ type Recipe = {
   image: string;
 };
 
+
+
 // TODO: Index síða fyrir uppskriftir
 export default function Recipes() {
   const [state, setState] = useState('');
@@ -32,7 +34,7 @@ export default function Recipes() {
 
   async function getAllRecipes() {
     setState('loading');
-    // pause for 3 sec
+
     const response = await fetch(
       `http://localhost:3001/recipes?limit=${limit}&offset=${offset}`
     );

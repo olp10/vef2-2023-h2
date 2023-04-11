@@ -2,10 +2,27 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '../styles/Home.module.css'
+import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  // FIXME: Login langt frá því að vera klárt
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    let loginInfo = null;
+    try {
+      loginInfo = JSON.parse(Cookies.get('loginInfo') || '');
+    } catch (error) {
+      console.error('Error parsing login info:', error);
+    }
+    if (loginInfo) {
+      setLoggedIn(true);
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -16,7 +33,12 @@ export default function Home() {
 
       ({/* TODO: Eyða þessu, placeholder á forsíðu */})
       <div className={styles.main}>
-        <h1>VELKOMIN Á MATARSÍÐUNA!!!!!!! :D</h1>
+        {loggedIn === true && (
+          <h1>Innskráður!</h1>
+        )}
+        {loggedIn === false && (
+          <h1>Skráðu þig inn!</h1>
+        )}
       </div>
     </>
   )
